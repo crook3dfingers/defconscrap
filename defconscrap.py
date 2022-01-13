@@ -75,7 +75,7 @@ def pull_awards(content):
     awardtexts = content.find_all("p")
   except Exception as e:
     print(e)
-
+    
   for award in awardtexts:
     text = award.text
     if 'awarded' in text:
