@@ -11,11 +11,18 @@ page = requests.get(URL)
 soup = BeautifulSoup(page.content, "html.parser")
 
 body = soup.find("div", class_="body")
-awards = body.find_all("p", string=lambda text: "awarded" in text)
+awards = ""
+
+try:
+  awards = body.find_all("p")
+except Exception as e:
+  print(e)
+
 companies = []
 
 for award in awards:
-    text = award.text
+  text = award.text
+  if 'awarded' in text:
     companies.append(text.split(',', 1)[0])
 
 print(companies)
