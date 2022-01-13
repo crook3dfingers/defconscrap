@@ -20,7 +20,7 @@ def main():
   page_num = 1
   
   while page_num <= pages:
-    #links = scrape_contract_links(URL_LIST, page_num)
+    links = scrape_contract_links(URL_LIST, page_num)
     
     for link in links:
       date_content = scrape_single_date(link['link'])
@@ -82,7 +82,8 @@ def pull_awards(content):
     text = award.text
     if 'awarded' in text:
       company = text.split(',', 1)[0]
-      awards.append(company)
+      if 'CORRECTION' not in company:
+        awards.append(company)
   
   return awards
   
