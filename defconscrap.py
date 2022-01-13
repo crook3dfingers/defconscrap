@@ -1,4 +1,5 @@
 #!/usr/bin/python
+#defconscrap
 
 import argparse
 import requests
