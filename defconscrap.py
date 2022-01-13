@@ -6,15 +6,13 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 def main():
-	parser = argparse.ArgumentParser(usage='%(prog)s [options]', description='defconscrap, the Defense Contract Scraper')
-
-	parser.version = "0.1"
-	parser.add_argument("-p", "--pages", type=int, default=1, help="number of pages of links to scrape. Each page has links to 10 dates. (default: 1)")
-	parser.add_argument("-v", action="version")
-
-	args = parser.parse_args()
-	pages = args.pages
-
+  parser = argparse.ArgumentParser(usage='%(prog)s [options]', description='defconscrap, the Defense Contract Scraper')
+  parser.version = "0.1"
+  parser.add_argument("-p", "--pages", type=int, default=1, help="number of pages of links to scrape. Each page has links to 10 dates. (default: 1)")
+  parser.add_argument("-v", action="version")
+  args = parser.parse_args()
+  pages = args.pages
+  
   URL_LIST = "https://www.defense.gov/News/Contracts/?Page="
   
   awards = []
