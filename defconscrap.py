@@ -20,7 +20,7 @@ def main():
   page_num = 1
   
   while page_num <= pages:
-    links = scrape_contract_links(URL_LIST, page_num)
+    #links = scrape_contract_links(URL_LIST, page_num)
     
     for link in links:
       date_content = scrape_single_date(link['link'])
@@ -41,6 +41,7 @@ def get_soup(url):
 
 def format_date(date):
   try:
+    date = date.replace("Sept.", "Sep.").replace("July", "Jul.").replace("June", "Jun.").replace("May", "May.").replace("April", "Apr.").replace("March", "Mar.")
     datetime_object = datetime.strptime(date, '%b. %d, %Y').date()
   except Exception as e:
     print(e)
