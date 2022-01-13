@@ -56,7 +56,7 @@ def pull_awards(content):
   return awards
 
 URL_LIST = "https://www.defense.gov/News/Contracts/?Page="
-PAGES = 1
+PAGES = 2
 
 awards = []
 page_num = 1
