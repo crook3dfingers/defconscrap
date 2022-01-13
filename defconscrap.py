@@ -1,8 +1,39 @@
 #!/usr/bin/python
 
+import argparse
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
+
+def main():
+	parser = argparse.ArgumentParser(usage='%(prog)s [options]', description='defconscrap, the Defense Contract Scraper')
+
+	parser.version = "0.1"
+	parser.add_argument("-p", "--pages", type=int, default=1, help="number of pages of links to scrape. Each page has links to 10 dates. (default: 1)")
+	parser.add_argument("-v", action="version")
+
+	args = parser.parse_args()
+	pages = args.pages
+
+  URL_LIST = "https://www.defense.gov/News/Contracts/?Page="
+  
+  awards = []
+  page_num = 1
+  
+  while page_num <= pages:
+    links = scrape_contract_links(URL_LIST, page_num)
+    
+    for link in links:
+      date_content = scrape_single_date(link['link'])
+      awarded_companies = pull_awards(date_content)
+      awards.append({
+        "date": link['date'],
+        "companies": awarded_companies
+      })
+    
+    page_num += 1
+    
+  print(awards)
 
 def get_soup(url):
   page = requests.get(url)
@@ -54,24 +85,3 @@ def pull_awards(content):
       awards.append(company)
   
   return awards
-
-URL_LIST = "https://www.defense.gov/News/Contracts/?Page="
-PAGES = 2
-
-awards = []
-page_num = 1
-
-while page_num <= PAGES:
-  links = scrape_contract_links(URL_LIST, page_num)
-  
-  for link in links:
-    date_content = scrape_single_date(link['link'])
-    awarded_companies = pull_awards(date_content)
-    awards.append({
-      "date": link['date'],
-      "companies": awarded_companies
-    })
-  
-  page_num += 1
-  
-print(awards)
