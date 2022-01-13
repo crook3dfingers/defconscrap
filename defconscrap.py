@@ -85,3 +85,6 @@ def pull_awards(content):
       awards.append(company)
   
   return awards
+  
+if __name__== "__main__":
+  main()
